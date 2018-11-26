@@ -40,6 +40,8 @@ public class ScpTo{
       boolean ptimestamp = true;
 
       // exec 'scp -t rfile' remotely
+      rfile=rfile.replace("'", "'\"'\"'");
+      rfile="'"+rfile+"'";
       String command="scp " + (ptimestamp ? "-p" :"") +" -t "+rfile;
       Channel channel=session.openChannel("exec");
       ((ChannelExec)channel).setCommand(command);
@@ -57,7 +59,7 @@ public class ScpTo{
       File _lfile = new File(lfile);
 
       if(ptimestamp){
-        command="T"+(_lfile.lastModified()/1000)+" 0";
+        command="T "+(_lfile.lastModified()/1000)+" 0";
         // The access time should be sent here,
         // but it is not accessible with JavaAPI ;-<
         command+=(" "+(_lfile.lastModified()/1000)+" 0\n"); 

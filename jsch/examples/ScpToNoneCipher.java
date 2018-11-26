@@ -38,6 +38,8 @@ public class ScpToNoneCipher{
       session.rekey();
 
       // exec 'scp -t rfile' remotely
+      rfile=rfile.replace("'", "'\"'\"'");
+      rfile="'"+rfile+"'";
       String command="scp -p -t "+rfile;
       Channel channel=session.openChannel("exec");
       ((ChannelExec)channel).setCommand(command);

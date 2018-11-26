@@ -43,6 +43,8 @@ public class ScpFrom{
       session.connect();
 
       // exec 'scp -f rfile' remotely
+      rfile=rfile.replace("'", "'\"'\"'");
+      rfile="'"+rfile+"'";
       String command="scp -f "+rfile;
       Channel channel=session.openChannel("exec");
       ((ChannelExec)channel).setCommand(command);
